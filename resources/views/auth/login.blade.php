@@ -1,6 +1,7 @@
-<form method="POST" action="{{ route('login') }}">
+<form method="POST" action="/login">
     @csrf
-    <input name="email" type="email" placeholder="Email" required>
-    <input name="password" type="password" placeholder="Password" required>
+    <input name="email" type="email" required placeholder="Email">
+    <input name="password" type="password" required placeholder="Password">
     <button type="submit">Login</button>
 </form>
+<a href="/register">Register</a>

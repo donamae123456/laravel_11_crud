@@ -15,7 +15,10 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -24,7 +27,7 @@ class LoginController extends Controller
 
         return back()->withErrors([
             'email' => 'Invalid credentials.',
-        ]);
+        ])->onlyInput('email');
     }
 
     public function logout(Request $request)
@@ -32,7 +35,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return redirect('/login');
     }
 }
